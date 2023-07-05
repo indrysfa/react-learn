@@ -182,18 +182,36 @@ const root = document.querySelector('#root');
 // }
 // ReactDOM.render(<App2 />, root);
 
+// Component Lifecycle
 function App3() {
   const [diklik, setDiklik] = React.useState(false);
+  const [count, setCount] = React.useState(0);
+  // component did update
+  // function akan dieksekusi pada saat component itu di render
+  // ketika nilainya berubah maka function ini akan dieksekusi lagi sesuai dependency state
+  // tidak hanya di render saat pertama kali, ketika render ulang function ini akan di eksekusi lagi
   React.useEffect(function () {
     console.log(document.getElementById('judul'));
-  });
+  }, [count] // state yg mau dipantau
+  );
+
+  // component did mount
+  // React.useEffect(
+  //     function () {
+  //         console.log('exec');
+  //     }, []); // empty array, second argument eksekusi func ini pada saat component itu di render pertama kali saja (data patching dari server)
+
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", {
     id: "judul"
   }, "Hello ini judul"), ";", /*#__PURE__*/React.createElement("button", {
     onClick: function () {
       setDiklik(true);
     }
-  }, "Klik disini"));
+  }, "Klik disini"), /*#__PURE__*/React.createElement("button", {
+    onClick: function () {
+      setDiklik(true);
+    }
+  }, "Klik disini"), "Nilai saat ini: ", count);
 }
 setTimeout(function () {
   ReactDOM.render( /*#__PURE__*/React.createElement(App3, null), root);

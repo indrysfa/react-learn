@@ -186,15 +186,23 @@ const root = document.querySelector('#root');
 // Component Lifecycle
 function App3() {
     const [diklik, setDiklik] = React.useState(false);
-
+    const [count, setCount] = React.useState(0);
+    // component did update
     // function akan dieksekusi pada saat component itu di render
     // ketika nilainya berubah maka function ini akan dieksekusi lagi sesuai dependency state
+    // tidak hanya di render saat pertama kali, ketika render ulang function ini akan di eksekusi lagi
     React.useEffect(
         function () {
             console.log(document.getElementById('judul'));
         },
-        [diklik, count]
+        [count] // state yg mau dipantau
     );
+
+    // component did mount
+    // React.useEffect(
+    //     function () {
+    //         console.log('exec');
+    //     }, []); // empty array, second argument eksekusi func ini pada saat component itu di render pertama kali saja (data patching dari server)
 
     return (
         <>
@@ -204,6 +212,12 @@ function App3() {
             }}>
                 Klik disini
             </button>
+            <button onClick={function () {
+                setDiklik(true);
+            }}>
+                Klik disini
+            </button>
+            Nilai saat ini: {count}
         </>
     )
 }
